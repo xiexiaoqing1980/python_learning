@@ -7,9 +7,10 @@ class BasePage(object):
     """
         This is a base page class for Page Object.Package the common methods such as driver, url ,FindElement
         """
-    def __init__(self,driver ,base_url):
+    def __init__(self,driver ,base_url,title):
         self.driver=driver
         self.base_url = base_url
+        self.title=title
 
     def find_element(self, *loc):
         """
@@ -23,20 +24,25 @@ class BasePage(object):
         except:
             print(u"%s 页面中未能找到 %s 元素" % (self, loc))
 
-    def send_keys(self, loc, value, clear_first=True, click_first=True):
-        """
-        The method is used to send keys to input fileds
-        :param loc: target element
-        :param vaule: to be tested values
-        :param clear_first:
-        :param click_first:
-        :return:
-        """
-        try:
-            self.find_element(*loc).clear()
-            self.find_element(*loc).send_keys(value)
-        except AttributeError:
-            print(u"%s 页面中未能找到 %s 元素" % (self, loc))
+    # def send_keys(self, loc, value):
+    #     """
+    #     The method is used to send keys to input fileds
+    #     :param loc: target element
+    #     :param vaule: to be tested values
+    #     :param clear_first:
+    #     :param click_first:
+    #     :return:
+    #     """
+    #     try:
+    #         self.find_element(*loc).clear()
+    #         self.find_element(*loc).send_keys(value)
+    #     except AttributeError:
+    #         print(u"%s 页面中未能找到 %s 元素" % (self, loc))
+
+    def open_page(self):
+        self.driver.get(self.base_url)
+        self.driver.maximize_window()   #maxmizm the window size;
+        assert self.title in self.driver.title
 
 
 

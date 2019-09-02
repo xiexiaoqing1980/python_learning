@@ -16,7 +16,7 @@ def getelement_by_xpath(path):
 def authorize():
     wd.get(loginurl)
     try:
-        getelement_by_xpath('//*[@id="login-phone"]').send_keys("administrator")
+        getelement_by_xpath('//*[@id="login-phone"]').send_keys("administrator")  #操作与页面元素混在了一起
         getelement_by_xpath('//*[@id="login-password"]/input').send_keys('1234567')
     except Exception as error:
         wd.quit()
@@ -83,6 +83,7 @@ def login():
     WebDriverWait(wd, 60).until(EC.presence_of_element_located((By.XPATH,'//*[@title="开发演示云"]')))
     element3=wd.find_element_by_xpath('//*[@title="开发演示云"]')
     wd.execute_script("arguments[0].click();", element3)
+
 
 if __name__ == '__main__':
     
