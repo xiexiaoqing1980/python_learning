@@ -24,20 +24,20 @@ class BasePage(object):
         except:
             print(u"%s 页面中未能找到 %s 元素" % (self, loc))
 
-    # def send_keys(self, loc, value):
-    #     """
-    #     The method is used to send keys to input fileds
-    #     :param loc: target element
-    #     :param vaule: to be tested values
-    #     :param clear_first:
-    #     :param click_first:
-    #     :return:
-    #     """
-    #     try:
-    #         self.find_element(*loc).clear()
-    #         self.find_element(*loc).send_keys(value)
-    #     except AttributeError:
-    #         print(u"%s 页面中未能找到 %s 元素" % (self, loc))
+    def send_keys(self, element, value):
+        """
+        The method is used to send keys to input fileds
+        :param loc: target element
+        :param vaule: to be tested values
+        :param clear_first:
+        :param click_first:
+        :return:
+        """
+        try:
+            element.clear()
+            element.send_keys(value)
+        except AttributeError:
+            print(u"%s 页面中未能找到 %s 元素" % (self, element))
 
     def open_page(self):
         self.driver.get(self.base_url)
