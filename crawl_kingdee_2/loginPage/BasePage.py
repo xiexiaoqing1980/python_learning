@@ -1,9 +1,11 @@
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import unittest
+
 from selenium.webdriver.common.by import By
 
-class BasePage(object):
+class BasePage():
     """
         This is a base page class for Page Object.Package the common methods such as driver, url ,FindElement
         """
@@ -43,6 +45,15 @@ class BasePage(object):
         self.driver.get(self.base_url)
         self.driver.maximize_window()   #maxmizm the window size;
         assert self.title in self.driver.title
+
+    # def assertEqual(self,expected,actual):
+    #     expected_el=self.driver.find_element(expected)
+    #     actual=self.driver.find_element(expected)
+    #     s
+    def close_page(self):
+        self.driver.close()
+
+
 
 
 

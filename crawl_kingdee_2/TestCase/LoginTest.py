@@ -1,6 +1,7 @@
 
 import unittest
-import crawl_kingdee_2.loginPage as loginPage
+from  crawl_kingdee_2.loginPage.Login_page import Login_page
+
 from  selenium import webdriver
 from selenium.webdriver.common.by import By
 
@@ -14,27 +15,35 @@ class loginTest(unittest.TestCase):
         chrome_options.add_argument("--incognito")
         self.driver  = webdriver.Chrome(executable_path=chromepath, chrome_options=chrome_options)
         self.base_url="https://ierp.kingdee.com:2024/biz15/index.html"
-
-    def login_test1_fail(self):
-        self._login("18826135235",'123456')
-        assert("用户名或密码错误" in self.driver.page_source)
+        self.login_page = Login_page(self.driver, self.base_url, "金蝶云苍穹")
 
 
-    def login_test2_success(self):
-        self.__login("18826135235", '1234567')
-        assert ("")
+    def test_login_fail(self):
+        self.login_page.login("18826135235",'123456')
+        self.assertEqual("用户名或密码错误",self.login_page.find_element(*(By.XPATH ,'//*[@class="Notification_message_2ZKR"]')).text)
 
-    def __login(self,username,password):
-        login_page = loginPage(self.driver, self.base_url, "金蝶云苍穹")
-        login_page.open()
-        title=login_page.find_element(*(By.XPATH,'//*[@class="KingdeeCloud_title_3ZXK"]'))
-        self.assertIsNotNone(title)
-        login_page.input_username(username)
-        login_page.input_password(password)
-        login_page.click_submit()
+    def test_login_success(self):
+        self.login_page.login("18826135235", '1234567')
+
+
+    # def __login(self,username,password):
+    #     self.login_page = loginPage(self.driver, self.base_url, "金蝶云苍穹")
+    #     login_page.open()
+    #     title=login_page.find_element(*(By.XPATH,'//*[@class="KingdeeCloud_title_3ZXK"]'))
+    #     self.assertIsNotNone(title)
+    #     login_page.input_username(username)
+    #     login_page.input_password(password)
+    #     login_page.click_submit()
+    # def tearDown(self):
+    #     self.login_page.close_page()  #关闭当前页面
+    #     print(" Page is closed")
+
 
 if __name__ == '__main__':
-     unittest.main()
+     suite1=unittest.TestLoader().loadTestsFromTestCase(loginTest["test_login_fail"])
+     suite=unittest.TestSuite([suite1])
+     unittest.TextTestRunner().run(suite)
+
 
 
 
