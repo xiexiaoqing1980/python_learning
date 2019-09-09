@@ -13,7 +13,7 @@ class loginTest(unittest.TestCase):
         chromepath = "D:/chromedriver_win32/chromedriver.exe"
         chrome_options = webdriver.ChromeOptions()
         chrome_options.add_argument("--incognito")
-        self.driver  = webdriver.Chrome(executable_path=chromepath, chrome_options=chrome_options)
+        self.driver  = webdriver.Chrome(executable_path=chromepath, options=chrome_options)
         self.base_url="https://ierp.kingdee.com:2024/biz15/index.html"
         self.login_page = Login_page(self.driver, self.base_url, "金蝶云苍穹")
 
@@ -40,8 +40,11 @@ class loginTest(unittest.TestCase):
 
 
 if __name__ == '__main__':
-     suite1=unittest.TestLoader().loadTestsFromTestCase(loginTest["test_login_fail"])
-     suite=unittest.TestSuite([suite1])
+     # suite1=unittest.TestLoader().loadTestsFromTestCase(loginTest["test_login_fail"])
+     # suite=unittest.TestSuite([suite1])
+     suite=unittest.TestSuite()
+     suite.addTest(loginTest("test_login_fail"))
+     print("method1")
      unittest.TextTestRunner().run(suite)
 
 
