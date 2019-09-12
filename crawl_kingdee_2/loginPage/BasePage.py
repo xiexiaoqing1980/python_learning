@@ -53,6 +53,14 @@ class BasePage():
     def close_page(self):
         self.driver.close()
 
+    def click(self,element,is_button=True,):
+        if is_button:
+            element.click()
+        else:
+            self.driver.execute_script("arguments[0].click();", element)
+
+
+
 
 
 
